@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<modification>
+  <name><![CDATA[Topbar message by customer group]]></name>
+  <code><![CDATA[topbar_message_by_customer_group]]></code>
+	<version><![CDATA[1.0]]></version>
+	<author><![CDATA[REDS PRAI]]></author>
+	<link><![CDATA[https://www.agenciaprai.com/]]></link>
+		
+    <file path="catalog/controller/common/header.php" error="skip">
+			<operation>
+				<search><![CDATA[// Wishlist]]></search>
+				<add position="before"><![CDATA[
+				// get customer group ID
+				$customer_group_id = $this->customer->getGroupId();
+				if ((int)$customer_group_id == 3){
+					$data['top_message_customer'] = $this->language->get('text_shipping_seller');
+				} else {
+					$data['top_message_customer'] = $this->language->get('text_shipping_customer');
+				}
+				]]></add>
+			</operation>
+    </file>
+		<file path="catalog/language/pt-br/common/header.php" error="skip">
+			<operation>
+				<search><![CDATA[// Text]]></search>
+				<add position="before"><![CDATA[
+				// shipping message
+				$_['text_shipping_customer']   = 'Aproveite nosso frete grátis a partir de R$350,00 para todo o Brasil ';
+				$_['text_shipping_seller']     = 'Aproveite nosso frete grátis para atacadista a partir de R$900,00 para todo o Brasil ';
+				]]></add>
+			</operation>
+    </file>
+		<file path="catalog/view/theme/*/template/common/header.twig" error="skip">
+			<operation>
+				<search><![CDATA[<body>]]></search>
+				<add position="after"><![CDATA[
+				<div class="topbar">
+				 {{ top_message_customer }}
+				</div>
+				<style>
+				.topbar {
+  background-color: #1db570;
+  padding: 10px;
+  text-align: center;
+  color: #fff;
+}
+				</style>
+				]]></add>
+			</operation>
+    </file>
+		
+</modification>
